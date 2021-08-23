@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 3</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600&display=swap" rel="stylesheet">
+
+  <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container">
+    <form class="text-center border border-dark p-5">
+      <p class="h3 mb-4">Temperature Convertion</p>
+      <div class="h4 mb-5">
+        <select class="p-1" name="from" id="from" onchange="select()">
+          <option value="celcius">Celcius</option>
+          <option value="farenheit">Farenheit</option>
+          <option value="reamur">Reamur</option>
+        </select>
+        to
+        <select class="p-1" name="to" id="to" onchange="select()">
+          <option value="celcius">Celcius</option>
+          <option value="farenheit">Farenheit</option>
+          <option value="reamur">Reamur</option>
+        </select>
+      </div>
+      <input type="number" name="kmh" id="num" class="form-control mb-4 mt-2" placeholder="Input your number to convert"
+        onkeypress="validate(event)" onkeyup="convert()" />
+      <p class="h6 mb-4">=</p>
+      <h4 class="text-center" id="result" style="text-transform: uppercase;">Hasil</h4>
+    </form>
+    <div class="row g-3 mt-4">
+      <div class="col-auto">
+        <input type="color" class="form-controlform-control-color" id="color" value="#563d7c" title="Choose your color"
+          style="height: 40px; width: 75px;">
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-primary" onclick="changeBackground()">Change Background Color</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./temperature.js"></script>
+  <script>
+    function validate(evt) {
+      var theEvent = evt || window.event;
+
+      // Handle paste
+      if (theEvent.type === "paste") {
+        key = event.clipboardData.getData("text/plain");
+      } else {
+        // Handle key press
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode(key);
+      }
+      var regex = /[0-9]|\./;
+      if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+      }
+    }
+
+    function select() {
+      document.getElementById("num").value = "";
+      document.getElementById("result").value = "Hasil";
+    }
+
+    const temperature = new Temperature();
+
+    function convert() {
+      if (document.getElementById("from").value == "celcius") {
+        const result = temperature.fromCelcius(
+          document.getElementById("to").value,
+          parseInt(document.getElementById("num").value)
+        );
+        document.getElementById("result").innerHTML = result;
+      }
+      if (document.getElementById("from").value == "farenheit") {
+        const result = temperature.fromFarenheit(
+          document.getElementById("to").value,
+          parseInt(document.getElementById("num").value)
+        );
+        document.getElementById("result").innerHTML = result;
+      }
+      if (document.getElementById("from").value == "reamur") {
+        const result = temperature.fromReamur(
+          document.getElementById("to").value,
+          parseInt(document.getElementById("num").value)
+        );
+        document.getElementById("result").innerHTML = result;
+      }
+    }
+
+    function changeBackground() {
+      document.body.style.backgroundColor =
+        document.getElementById('color').value;
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
