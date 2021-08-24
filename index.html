@@ -30,14 +30,14 @@
           <option value="reamur">Reamur</option>
         </select>
       </div>
-      <input type="number" name="kmh" id="num" class="form-control mb-4 mt-2" placeholder="Input your number to convert"
-        onkeypress="validate(event)" onkeyup="convert()" />
+      <input type="number" name="num" id="num" class="form-control mb-4 mt-2" placeholder="Input your number to convert"
+        onkeyup="convert()" />
       <p class="h6 mb-4">=</p>
       <h4 class="text-center" id="result" style="text-transform: uppercase;">Hasil</h4>
     </form>
     <div class="row g-3 mt-4">
       <div class="col-auto">
-        <input type="color" class="form-controlform-control-color" id="color" value="#563d7c" title="Choose your color"
+        <input type="color" class="form-control form-control-color" id="color" value="#563d7c" title="Choose your color"
           style="height: 40px; width: 75px;">
       </div>
       <div class="col-auto">
@@ -48,24 +48,6 @@
 
   <script src="./temperature.js"></script>
   <script>
-    function validate(evt) {
-      var theEvent = evt || window.event;
-
-      // Handle paste
-      if (theEvent.type === "paste") {
-        key = event.clipboardData.getData("text/plain");
-      } else {
-        // Handle key press
-        var key = theEvent.keyCode || theEvent.which;
-        key = String.fromCharCode(key);
-      }
-      var regex = /[0-9]|\./;
-      if (!regex.test(key)) {
-        theEvent.returnValue = false;
-        if (theEvent.preventDefault) theEvent.preventDefault();
-      }
-    }
-
     function select() {
       document.getElementById("num").value = "";
       document.getElementById("result").value = "Hasil";
